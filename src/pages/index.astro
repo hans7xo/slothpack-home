@@ -1,0 +1,179 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<BaseLayout>
+  <Header />
+
+  <!-- 主内容区：信纸布局，居中偏左，全部左对齐 -->
+  <main class="letter">
+    <!-- 1. 品牌名 -->
+    <div class="brand-line fade fade-d0">
+      <span class="logo" aria-hidden="true">[LOGO]</span>
+      <h1 class="brand-name">SlothPack</h1>
+    </div>
+
+    <!-- 2. 英文 Tagline -->
+    <p class="tagline-en fade fade-d1">We pack. You relax.</p>
+
+    <!-- 3. 中文 Tagline -->
+    <p class="tagline-cn fade fade-d2">我们打包，你躺平。</p>
+
+    <!-- 4. 介绍 -->
+    <p class="intro fade fade-d3">懒人创作者的工具站。 / A quiet tool library for lazy creators.</p>
+
+    <!-- 5. 入口链接 -->
+    <nav class="entries fade fade-d4" aria-label="进入工具站">
+      <a href="https://tools.slothpack.com">浏览工具 →</a>
+      <a href="https://tools.slothpack.com/submit">提交工具 →</a>
+    </nav>
+
+    <!-- 大段空白（≥120px，由 .bottom 的 margin-top 提供） -->
+
+    <!-- 6. 底部信息 -->
+    <div class="bottom fade fade-d5">
+      <a class="contact" href="https://t.me/SlothPack">Telegram: @SlothPack</a>
+      <a class="contact" href="mailto:support@slothpack.com">support@slothpack.com</a>
+      <p class="quiet">Quietly curated.</p>
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  /* 信纸布局：整体占页面宽度 40%，最大 560px，居中偏左 */
+  .letter {
+    max-width: 560px;
+    width: 40%;
+    margin-left: 15%;
+    margin-right: auto;
+    padding: 240px 0; /* 上下留白：桌面端 240px */
+  }
+
+  /* 1. 品牌名 */
+  .brand-line {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  /* Logo 占位：24px 高，待替换 */
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 24px;
+    min-width: 52px;
+    padding: 0 7px;
+    border: 1px dashed var(--color-border);
+    border-radius: 7px;
+    background: var(--color-card);
+    font-size: 9px;
+    letter-spacing: 0.04em;
+    color: var(--color-text-muted);
+  }
+
+  .brand-name {
+    font-family: var(--font-heading);
+    font-weight: 500;
+    font-size: 28px;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+
+  /* 2. 英文 Tagline */
+  .tagline-en {
+    margin-top: 48px;
+    font-family: var(--font-heading);
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 1.5;
+  }
+
+  /* 3. 中文 Tagline */
+  .tagline-cn {
+    margin-top: 16px;
+    font-size: 18px;
+    line-height: 1.8;
+  }
+
+  /* 4. 介绍 */
+  .intro {
+    margin-top: 24px;
+    font-size: 15px;
+    line-height: 1.8;
+    color: var(--color-text-muted);
+  }
+
+  /* 5. 入口链接：文字链接样式，非按钮 */
+  .entries {
+    display: flex;
+    gap: 32px;
+    margin-top: 56px;
+  }
+
+  .entries a {
+    font-family: var(--font-heading);
+    font-weight: 400;
+    font-size: 15px;
+    color: var(--color-accent);
+    transition: text-decoration 0.2s ease;
+  }
+
+  .entries a:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  /* 6. 底部信息：入口链接之后保留至少 120px 空白 */
+  .bottom {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 120px;
+  }
+
+  .contact {
+    font-size: 15px;
+    color: var(--color-text-muted);
+    transition: color 0.25s ease;
+  }
+
+  .contact:hover {
+    color: var(--color-accent);
+  }
+
+  .quiet {
+    margin-top: 20px;
+    font-size: 13px;
+    color: var(--color-text-muted);
+  }
+
+  /* 移动端：上下留白 120px，左右留白 8% */
+  @media (max-width: 768px) {
+    .letter {
+      width: auto;
+      max-width: none;
+      margin-left: 8%;
+      margin-right: 8%;
+      padding: 120px 0;
+    }
+
+    .tagline-en {
+      margin-top: 40px;
+    }
+
+    .entries {
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-top: 44px;
+    }
+
+    .bottom {
+      margin-top: 120px;
+    }
+  }
+</style>

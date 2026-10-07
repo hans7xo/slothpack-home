@@ -1,0 +1,40 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'SlothPack — A quiet tool library for lazy creators.',
+  description = '懒人创作者的工具站。We pack. You relax.',
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <link rel="icon" href="/favicon.ico" />
+
+    <!-- 共享设计令牌：单一来源，tools 子域跨域直引同一文件（public/css-variables.css） -->
+    <link rel="stylesheet" href="/css-variables.css" />
+
+    <!-- 字体：Inter + Noto Sans SC，font-display: swap
+         （字体加载期间使用系统 fallback，避免布局跳动） -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Noto+Sans+SC:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

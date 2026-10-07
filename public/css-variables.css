@@ -1,0 +1,20 @@
+/* ============================================================
+   SlothPack — 共享设计令牌（单一来源）
+   主域 slothpack.com 与 tools.slothpack.com 共用同一套变量。
+   子域如需跨域直引：在部署端 _headers 中为本站点开启
+   Access-Control-Allow-Origin。
+   ============================================================ */
+:root {
+  --color-bg: #F5F1E8;
+  --color-card: #FAF8F3;
+  --color-text: #3F4038;
+  --color-text-muted: #77766D;
+  --color-border: #DDD7CA;
+  --color-accent: #66745F;
+  --color-sand: #B8A58B;
+  --color-sage: #87978B;
+  --color-mist: #9AAEB5;
+
+  --font-heading: Inter, Helvetica Neue, Arial, sans-serif;
+  --font-body: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+}

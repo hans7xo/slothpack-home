@@ -1,0 +1,84 @@
+/* ============================================================
+   SlothPack 主域品牌页 —— 全局基础样式
+   依赖 css-variables.css 中的设计令牌
+   ============================================================ */
+
+/* 重置浏览器默认样式 */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+::selection {
+  background: var(--color-sage);
+  color: var(--color-bg);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ---------- 极慢淡入（整页内容 0 → 1，1.2s ease-out，无位移/缩放） ---------- */
+.fade {
+  opacity: 0;
+  animation: fade-in 1.2s ease-out forwards;
+}
+.fade-d0 { animation-delay: 0ms; }      /* 1. 品牌名 */
+.fade-d1 { animation-delay: 150ms; }    /* 2. 英文 Tagline */
+.fade-d2 { animation-delay: 300ms; }    /* 3. 中文 Tagline */
+.fade-d3 { animation-delay: 450ms; }    /* 4. 介绍 */
+.fade-d4 { animation-delay: 600ms; }    /* 5. 入口链接 */
+.fade-d5 { animation-delay: 750ms; }    /* 6. 底部信息 */
+.fade-d6 { animation-delay: 900ms; }    /* Footer */
+
+@keyframes fade-in {
+  to { opacity: 1; }
+}
+
+/* 尊重系统减少动效设置：直接显示，不做淡入 */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .fade {
+    animation: none;
+    opacity: 1;
+  }
+}
+
+/* ---------- 移动端适配 ---------- */
+@media (max-width: 768px) {
+  body { font-size: 15px; }
+}

@@ -1,0 +1,116 @@
+---
+// SlothPack 主域导航 —— 链接全部指向 tools 子域
+const links = [
+  { label: '工具', href: 'https://tools.slothpack.com' },
+  { label: '分类', href: 'https://tools.slothpack.com/categories' },
+  { label: '提交', href: 'https://tools.slothpack.com/submit' },
+  { label: '关于', href: 'https://tools.slothpack.com/about' },
+];
+---
+
+<header class="site-header fade fade-d0">
+  <div class="header-inner">
+    <a class="brand" href="/" aria-label="SlothPack 首页">
+      <span class="logo" aria-hidden="true">[LOGO]</span>
+      <span class="wordmark">SlothPack</span>
+    </a>
+
+    <nav class="nav" aria-label="主导航">
+      {links.map((link) => (
+        <a href={link.href}>{link.label}</a>
+      ))}
+    </nav>
+
+    <!-- 移动端：只保留 Logo + 一个“工具”链接 -->
+    <a class="nav-mobile-tools" href="https://tools.slothpack.com">工具</a>
+  </div>
+</header>
+
+<style>
+  /* 背景透明、无阴影、无分割线 */
+  .site-header {
+    background: transparent;
+    box-shadow: none;
+    border-bottom: none;
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* 与信纸内容区左对齐：桌面 15% 留白 */
+    max-width: 560px;
+    margin-left: 15%;
+    padding: 28px 0;
+  }
+
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  /* Logo 占位：24px 高，待替换为正式 Logo */
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 24px;
+    min-width: 48px;
+    padding: 0 6px;
+    border: 1px dashed var(--color-border);
+    border-radius: 6px;
+    background: var(--color-card);
+    font-size: 9px;
+    letter-spacing: 0.04em;
+    color: var(--color-text-muted);
+  }
+
+  .wordmark {
+    font-family: var(--font-heading);
+    font-weight: 500;
+    font-size: 16px;
+    letter-spacing: -0.01em;
+    color: var(--color-text);
+  }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+  }
+
+  .nav a {
+    font-family: var(--font-heading);
+    font-size: 14px;
+    color: var(--color-text-muted);
+    transition: color 0.25s ease;
+  }
+
+  .nav a:hover {
+    color: var(--color-text);
+  }
+
+  .nav-mobile-tools {
+    display: none;
+    font-family: var(--font-heading);
+    font-size: 14px;
+    color: var(--color-text-muted);
+  }
+
+  /* 移动端：折叠为 Logo + “工具” */
+  @media (max-width: 768px) {
+    .header-inner {
+      max-width: none;
+      margin-left: 8%;
+      margin-right: 8%;
+      padding: 20px 0;
+    }
+    .nav {
+      display: none;
+    }
+    .nav-mobile-tools {
+      display: inline;
+    }
+  }
+</style>

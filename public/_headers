@@ -1,0 +1,10 @@
+# SlothPack 主域 —— Cloudflare Pages 响应头
+# 共享设计令牌：允许 tools 子域跨域直引 css-variables.css
+/css-variables.css
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=3600
+
+# 全局安全头
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
