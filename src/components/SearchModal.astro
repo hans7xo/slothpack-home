@@ -1,0 +1,164 @@
+---
+// SlothPack 全局搜索弹窗（Cmd+K）— 第二批设计系统组件
+
+interface Props {
+  /** 可覆盖输入框提示文案 */
+  placeholder?: string;
+}
+
+const {
+  placeholder = '输入你想偷懒解决的事情，比如：生成 Logo、写 README...',
+} = Astro.props;
+---
+
+<div class="search-modal" data-search-modal aria-hidden="true">
+  <div class="backdrop" data-search-close></div>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="全局搜索">
+    <div class="input-row">
+      <input
+        class="search-input"
+        type="text"
+        placeholder={placeholder}
+        autocomplete="off"
+        spellcheck="false"
+        aria-label="搜索工具"
+      />
+      <span class="esc-hint">ESC 退出</span>
+    </div>
+  </div>
+</div>
+
+<script>
+  const modal = document.querySelector('[data-search-modal]');
+  const input = modal?.querySelector('.search-input');
+
+  const open = () => {
+    if (!modal) return;
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
+    input?.focus();
+  };
+
+  const close = () => {
+    if (!modal) return;
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+    input?.blur();
+  };
+
+  document.addEventListener('keydown', (e) => {
+    // Cmd+K / Ctrl+K 打开
+    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+      e.preventDefault();
+      open();
+    }
+    // ESC 关闭
+    if (e.key === 'Escape' && modal?.classList.contains('open')) {
+      close();
+    }
+  });
+
+  // 点击遮罩关闭
+  modal?.querySelector('[data-search-close]')?.addEventListener('click', close);
+</script>
+
+<style>
+  .search-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition:
+      opacity var(--sloth-transition-fade),
+      visibility 0s linear var(--sloth-transition-fade);
+  }
+
+  .search-modal.open {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+    transition: opacity var(--sloth-transition-fade);
+  }
+
+  .backdrop {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(245, 241, 232, 0.75);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    opacity: 0;
+    transition: opacity var(--sloth-transition-fade);
+  }
+
+  .search-modal.open .backdrop {
+    opacity: 1;
+  }
+
+  .panel {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 600px;
+    margin: 20vh auto 0;
+    padding: 24px;
+    background-color: var(--sloth-bg-card);
+    border: 1px solid var(--sloth-border-main);
+    border-radius: var(--sloth-radius-lg);
+    box-shadow: var(--sloth-shadow-hover);
+    opacity: 0;
+    transition: opacity var(--sloth-transition-fade);
+  }
+
+  .search-modal.open .panel {
+    opacity: 1;
+  }
+
+  .input-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .search-input {
+    flex: 1;
+    min-width: 0;
+    padding: 14px 16px;
+    font-size: 18px;
+    color: var(--sloth-text-main);
+    background-color: transparent;
+    border: 1px solid var(--sloth-border-main);
+    border-radius: var(--sloth-radius-md);
+    outline: none;
+    transition:
+      border-color 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94),
+      box-shadow 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .search-input::placeholder {
+    color: var(--sloth-color-mist);
+  }
+
+  .search-input:focus {
+    border-color: var(--sloth-color-sand);
+    box-shadow: 0 0 0 3px rgba(184, 165, 139, 0.2);
+  }
+
+  .esc-hint {
+    flex-shrink: 0;
+    font-size: 12px;
+    color: var(--sloth-text-disabled);
+    user-select: none;
+  }
+
+  @media (max-width: 768px) {
+    .panel {
+      margin-top: 16vh;
+      padding: 16px;
+    }
+    .search-input {
+      font-size: 16px;
+    }
+  }
+</style>
