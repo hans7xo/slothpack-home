@@ -1,0 +1,114 @@
+---
+// SlothPack 单项工具卡片 — 第二批设计系统组件（--sloth-* tokens）
+
+interface Props {
+  title: string;
+  description: string;
+  /** 图标：可传图片 URL（http/https、/、data:image 开头），也可传文本/emoji 占位 */
+  icon: string;
+  tags: string[];
+  url: string;
+}
+
+const { title, description, icon, tags, url } = Astro.props;
+const isImage = /^(https?:|\/|data:image)/.test(icon);
+---
+
+<a class="tool-card" href={url}>
+  <div class="tool-top">
+    {isImage ? (
+      <img class="tool-icon" src={icon} alt="" width="40" height="40" loading="lazy" />
+    ) : (
+      <span class="tool-icon tool-icon-text" aria-hidden="true">{icon}</span>
+    )}
+    <h3 class="tool-title">{title}</h3>
+  </div>
+
+  <p class="tool-desc">{description}</p>
+
+  <ul class="tool-tags">
+    {tags.map((tag) => (
+      <li class="tag">{tag}</li>
+    ))}
+  </ul>
+</a>
+
+<style>
+  .tool-card {
+    display: block;
+    padding: 24px;
+    background-color: var(--sloth-bg-card);
+    border: 1px solid var(--sloth-border-main);
+    border-radius: var(--sloth-radius-lg);
+    text-decoration: none;
+    transition:
+      transform var(--sloth-transition-slow),
+      border-color var(--sloth-transition-slow),
+      box-shadow var(--sloth-transition-slow);
+  }
+
+  .tool-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--sloth-color-sand);
+    box-shadow: var(--sloth-shadow-hover);
+  }
+
+  .tool-top {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .tool-icon {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+  }
+
+  .tool-icon-text {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    line-height: 1;
+  }
+
+  .tool-title {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.4;
+    color: var(--sloth-text-main);
+  }
+
+  .tool-desc {
+    margin: 14px 0 0;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--sloth-text-sub);
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    overflow: hidden;
+  }
+
+  .tool-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 16px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .tag {
+    padding: 3px 10px;
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--sloth-text-sub);
+    background-color: var(--sloth-border-light);
+    border-radius: 4px;
+  }
+</style>
