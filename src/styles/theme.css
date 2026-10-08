@@ -1,0 +1,83 @@
+:root {
+  /* 背景 */
+  --sloth-bg-page: #F5F1E8;
+  --sloth-bg-card: #FAF8F3;
+
+  /* 文字 */
+  --sloth-text-main: #3F4038;
+  --sloth-text-sub: #77766D;
+  --sloth-text-disabled: #A3A29B;
+  --sloth-text-inverse: #FAF8F3;
+
+  /* 品牌与强调色 */
+  --sloth-color-sand: #B8A58B;
+  --sloth-color-moss: #66745F;
+  --sloth-color-sage: #87978B;
+  --sloth-color-mist: #9AAEB5;
+
+  /* 状态色 */
+  --sloth-status-success: #798970;
+  --sloth-status-warning: #C2A97B;
+  --sloth-status-error: #B8847D;
+  /* 边框 */
+  --sloth-border-main: #DDD7CA;
+  --sloth-border-light: #EAE5D9;
+  /* 字体 */
+  --sloth-font-heading: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --sloth-font-body: 'Noto Sans SC', sans-serif;
+
+  /* 间距 */
+  --sloth-space-xs: 4px;
+  --sloth-space-sm: 8px;
+  --sloth-space-md: 16px;
+  --sloth-space-lg: 24px;
+  --sloth-space-xl: 32px;
+  --sloth-space-2xl: 64px;
+  --sloth-space-3xl: 96px;
+  /* 圆角 */
+  --sloth-radius-sm: 4px;
+  --sloth-radius-md: 6px;
+  --sloth-radius-lg: 12px;
+  /* 阴影与过渡 */
+  --sloth-shadow-hover: 0 8px 24px rgba(63, 64, 56, 0.05);
+  --sloth-transition-slow: 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --sloth-transition-fade: 600ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+/* 全局重置与细节配置 */
+html, body {
+  background-color: var(--sloth-bg-page);
+  color: var(--sloth-text-main);
+  font-family: var(--sloth-font-body);
+  margin: 0;
+  padding: 0;
+  line-height: 1.7;
+}
+/* 全局文本选中样式 */
+::selection {
+  background-color: var(--sloth-border-main);
+  color: var(--sloth-text-main);
+}
+/* 静音级自定义滚动条 */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background-color: var(--sloth-border-main);
+  border-radius: var(--sloth-radius-sm);
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--sloth-color-sand);
+}
+/* 减弱动态效果支持 */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
