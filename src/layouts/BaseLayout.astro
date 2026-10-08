@@ -1,5 +1,9 @@
 ---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import SearchModal from '../components/SearchModal.astro';
 import '../styles/global.css';
+import '../styles/theme.css';
 
 interface Props {
   title?: string;
@@ -22,7 +26,7 @@ const {
 
     <link rel="icon" href="/favicon.ico" />
 
-    <!-- 共享设计令牌：单一来源，tools 子域跨域直引同一文件（public/css-variables.css） -->
+    <!-- 共享设计令牌（--color-* 旧体系，global.css 依赖；tools 子域跨域直引同一文件） -->
     <link rel="stylesheet" href="/css-variables.css" />
 
     <!-- 字体：Inter + Noto Sans SC，font-display: swap
@@ -35,6 +39,27 @@ const {
     />
   </head>
   <body>
-    <slot />
+    <Header />
+    <main class="layout-main">
+      <slot />
+    </main>
+    <Footer />
+    <SearchModal />
   </body>
 </html>
+
+<style>
+  .layout-main {
+    max-width: 1200px;
+    margin-inline: auto;
+    margin-top: var(--sloth-space-2xl);
+    margin-bottom: var(--sloth-space-3xl);
+    padding-inline: 24px;
+  }
+
+  @media (max-width: 768px) {
+    .layout-main {
+      padding-inline: 16px;
+    }
+  }
+</style>
