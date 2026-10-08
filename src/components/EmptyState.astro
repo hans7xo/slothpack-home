@@ -1,0 +1,62 @@
+---
+// SlothPack 空状态组件（搜索无结果 / 分类暂无工具）— 第二批设计系统组件
+
+interface Props {
+  title?: string;
+  description?: string;
+  actionHref?: string;
+  actionLabel?: string;
+}
+
+const {
+  title = '这个方向还没有整理过',
+  description = '可能工具还在路上，或者有更好用的你愿意推荐给我们？',
+  actionHref = 'https://tools.slothpack.com/submit',
+  actionLabel = '推荐工具',
+} = Astro.props;
+---
+
+<div class="empty-state">
+  <h3 class="empty-title">{title}</h3>
+  <p class="empty-desc">{description}</p>
+  <a class="empty-action" href={actionHref}>{actionLabel}</a>
+</div>
+
+<style>
+  .empty-state {
+    padding: var(--sloth-space-3xl) 0;
+    text-align: center;
+  }
+
+  .empty-title {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.5;
+    color: var(--sloth-text-main);
+  }
+
+  .empty-desc {
+    margin: var(--sloth-space-sm) 0 0;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--sloth-text-sub);
+  }
+
+  .empty-action {
+    display: inline-block;
+    margin-top: var(--sloth-space-lg);
+    padding: 10px 20px;
+    font-size: 14px;
+    color: var(--sloth-text-main);
+    background-color: var(--sloth-bg-card);
+    border: 1px solid var(--sloth-border-main);
+    border-radius: var(--sloth-radius-md);
+    text-decoration: none;
+    transition: border-color 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .empty-action:hover {
+    border-color: var(--sloth-color-sand);
+  }
+</style>
