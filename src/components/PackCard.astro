@@ -1,0 +1,92 @@
+---
+// SlothPack 组合包卡片（Stacked Cards 重叠视觉）— 第二批设计系统组件
+
+interface Props {
+  title: string;
+  description: string;
+  toolCount: number;
+  url: string;
+}
+
+const { title, description, toolCount, url } = Astro.props;
+---
+
+<a class="pack-card" href={url}>
+  <span class="pack-count">包含 {toolCount} 个工具</span>
+  <h3 class="pack-title">{title}</h3>
+  <p class="pack-desc">{description}</p>
+</a>
+
+<style>
+  .pack-card {
+    position: relative;
+    display: block;
+    padding: 24px;
+    background-color: var(--sloth-bg-card);
+    border: 1px solid var(--sloth-border-main);
+    border-radius: var(--sloth-radius-lg);
+    text-decoration: none;
+    z-index: 1;
+    transition:
+      transform var(--sloth-transition-slow),
+      border-color var(--sloth-transition-slow),
+      box-shadow var(--sloth-transition-slow);
+  }
+
+  /* 背后重叠层：轻微旋转 -2deg，位于主卡片下方 6px，营造“打包叠放” */
+  .pack-card::before {
+    content: '';
+    position: absolute;
+    top: 6px;
+    left: 0;
+    right: 0;
+    bottom: -6px;
+    background-color: var(--sloth-bg-card);
+    border: 1px solid var(--sloth-border-main);
+    border-radius: var(--sloth-radius-lg);
+    transform: rotate(-2deg);
+    z-index: -1;
+    transition: transform var(--sloth-transition-slow);
+  }
+
+  .pack-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--sloth-color-sand);
+    box-shadow: var(--sloth-shadow-hover);
+  }
+
+  /* Hover 时背后重叠层与主卡片同步上浮 2px */
+  .pack-card:hover::before {
+    transform: rotate(-2deg) translateY(-2px);
+  }
+
+  .pack-count {
+    display: inline-block;
+    padding: 3px 10px;
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--sloth-color-sand);
+    background-color: color-mix(in srgb, var(--sloth-color-sand) 10%, transparent);
+    border-radius: var(--sloth-radius-sm);
+  }
+
+  .pack-title {
+    margin: 16px 0 0;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.4;
+    color: var(--sloth-text-main);
+  }
+
+  .pack-desc {
+    margin: 10px 0 0;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--sloth-text-sub);
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    overflow: hidden;
+  }
+</style>
