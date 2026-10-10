@@ -1,6 +1,6 @@
 ---
 // SlothPack 顶部导航 — 第二批设计系统组件（--sloth-* tokens）
-// Logo 为 [LOGO] 占位，待品牌资产替换
+// 品牌标记：public/logo-mark.png（v6 插画头像裁切件，24px 高；来源见 brand/README.md）
 
 const navLinks = [
   { label: '主页', href: '/' },
@@ -15,7 +15,7 @@ const pathname = Astro.url.pathname;
 <header class="site-header">
   <div class="header-inner">
     <a class="brand" href="/" aria-label="SlothPack 首页">
-      <span class="logo" aria-hidden="true">[LOGO]</span>
+      <img class="logo" src="/logo-mark.png" alt="" width="127" height="72" />
     </a>
 
     <nav class="nav" aria-label="主导航">
@@ -76,11 +76,9 @@ const pathname = Astro.url.pathname;
   }
 
   .logo {
+    display: block;
     height: 24px;
-    font-size: 18px;
-    font-weight: 500;
-    line-height: 24px;
-    color: var(--sloth-text-main);
+    width: auto;
   }
 
   .nav {

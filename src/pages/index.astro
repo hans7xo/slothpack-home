@@ -7,7 +7,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   <main class="letter">
     <!-- 1. 品牌名 -->
     <div class="brand-line fade fade-d0">
-      <span class="logo" aria-hidden="true">[LOGO]</span>
+      <img class="logo" src="/logo-mark.png" alt="" width="127" height="72" />
       <h1 class="brand-name">SlothPack</h1>
     </div>
 
@@ -54,20 +54,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     gap: 16px;
   }
 
-  /* Logo 占位：24px 高，待替换 */
+  /* 品牌标记：24px 高，3 倍图；不再是文字占位 */
   .logo {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+    display: block;
     height: 24px;
-    min-width: 52px;
-    padding: 0 7px;
-    border: 1px dashed var(--color-border);
-    border-radius: 7px;
-    background: var(--color-card);
-    font-size: 9px;
-    letter-spacing: 0.04em;
-    color: var(--color-text-muted);
+    width: auto;
   }
 
   .brand-name {
