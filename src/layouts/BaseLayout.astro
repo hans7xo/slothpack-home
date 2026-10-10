@@ -8,12 +8,25 @@ import '../styles/theme.css';
 interface Props {
   title?: string;
   description?: string;
+  /** 不参与搜索索引的页面（如 404 兜底页）传 true */
+  noindex?: boolean;
+  /** 社交分享图路径，默认站点统一图 */
+  ogImage?: string;
 }
 
 const {
   title = 'SlothPack — A quiet tool library for lazy creators.',
   description = '懒人创作者的工具站。We pack. You relax.',
+  noindex = false,
+  ogImage = '/og-image.png',
 } = Astro.props;
+
+const SITE = Astro.site ?? new URL('https://slothpack.com');
+// canonical 与 og:url 一律使用根域，避免 www 与根域被判为重复内容
+const canonical = new URL(Astro.url.pathname, SITE).href;
+const ogImageUrl = new URL(ogImage, SITE).href;
+const siteName = 'SlothPack';
+const siteUrl = SITE.href;
 ---
 
 <!DOCTYPE html>
@@ -24,7 +37,53 @@ const {
     <title>{title}</title>
     <meta name="description" content={description} />
 
-    <link rel="icon" href="/favicon.ico" />
+    <!-- 索引策略：404 兜底页 noindex；首页 index -->
+    <meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow'} />
+    {!noindex && <link rel="canonical" href={canonical} />}
+    <meta name="theme-color" content="#F5F1E8" />
+
+    <!-- Open Graph（Telegram / Facebook / 微信等分享卡片） -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:locale" content="zh_CN" />
+    <meta property="og:locale:alternate" content="en_US" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={noindex ? siteUrl : canonical} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="SlothPack — We pack. You relax." />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+
+    <!-- 结构化数据（仅可索引页面输出） -->
+    {!noindex && (
+      <script
+        type="application/ld+json"
+        set:html={JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'WebSite',
+          name: siteName,
+          url: siteUrl,
+          description,
+          inLanguage: 'zh-CN',
+          publisher: {
+            '@type': 'Organization',
+            name: siteName,
+            url: siteUrl,
+            logo: { '@type': 'ImageObject', url: new URL('/logo-mark.png', SITE).href },
+            sameAs: ['https://t.me/SlothPack'],
+          },
+        })}
+      />
+    )}
+
+    <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
     <!-- 共享设计令牌（--color-* 旧体系，global.css 依赖；tools 子域跨域直引同一文件） -->

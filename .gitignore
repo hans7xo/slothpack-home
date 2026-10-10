@@ -25,3 +25,10 @@ pnpm-debug.log*
 
 # verification screenshots (local only)
 _shots/
+
+# python
+__pycache__/
+
+# 已被替换的瑕疵母版（保留本地，不入库）
+brand/_deprecated/
+

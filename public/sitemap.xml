@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  SlothPack 主域 sitemap
+  当前站点只有首页一个可索引页面（404.html 为兜底页，已由 robots.txt 排除）。
+  新增页面时请在此追加 <url> 条目，或改用 @astrojs/sitemap 自动生成。
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://slothpack.com/</loc>
+    <lastmod>2026-10-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+</urlset>

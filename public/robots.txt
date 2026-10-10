@@ -1,0 +1,10 @@
+# SlothPack — https://slothpack.com
+# 站点为纯静态单页品牌站；404 兜底页由 Cloudflare 的 not_found_handling 提供
+
+User-agent: *
+Allow: /
+
+# 404 兜底页不需要被索引
+Disallow: /404.html
+
+Sitemap: https://slothpack.com/sitemap.xml
