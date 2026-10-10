@@ -47,11 +47,12 @@ npm run preview   # 本地预览构建产物
 ├── brand/                    # 品牌母版（不参与构建、不会被部署）
 ├── public/
 │   ├── css-variables.css     # 共享设计令牌（旧命名 --color-*，tools 子域跨域直引）
-│   ├── logo-mark.png         # 品牌标记 127×72（页面按 24px 高显示）
-│   ├── favicon.ico           # 16 / 32 / 48 三尺寸
-│   ├── apple-touch-icon.png  # 180×180
+│   ├── logo-mark.png         # 品牌标记 136×144（v6 完整插画，页面按 48px 高显示）
+│   ├── favicon.ico           # 头像版，16 / 32 / 48 三尺寸
+│   ├── apple-touch-icon.png  # 头像版，180×180
 │   ├── favicon.svg           # 初始化遗留，未被引用
 │   ├── og-image.png          # 社交分享图 1200×630
+│   ├── robots.txt            # 爬虫规则（含 Sitemap 行，排除 404.html）
 │   └── _headers              # CORS 与安全头
 ├── src/
 │   ├── pages/
@@ -84,10 +85,22 @@ npm run preview   # 本地预览构建产物
 
 ## Logo 与 favicon
 
-- **页面标记**：`public/logo-mark.png`，顶部导航、首页品牌行、页脚三处统一 **24px 高**。
-- **favicon**：`public/favicon.ico`，图形为 `</>` 符号（16px 下仍可辨认）。
+- **页面标记**：`public/logo-mark.png` = **v6 完整插画**，顶部导航 / 首页品牌行 / 页脚三处统一 **48px 高**。
+  > ⚠️ 24px 下完整插画无法辨识（只是一团糊影），因此经确认把标记高度放宽到 **48px** ——
+  > 这是对早期"三处统一 24px"规格的**有意修改**，不是笔误。
+- **favicon**：`public/favicon.ico` 为**头像版**（16/32/48 三帧），`apple-touch-icon.png` 同源；
+  头像母版已清除插画中的装饰弧线碎片与椅子角，脚本会做单一连通域自检。
+- `</>` 符号母版保留在 `brand/logo-glyph-master.png`；若要换回符号版 favicon，改 `gen_logo_assets.py` 一处即可。
 - 母版与再生成方式见 `brand/README.md`；改动母版后运行 `python gen_logo_assets.py`。
-- 标记取自 v6 品牌插画的头部裁切（**裁在嘴上沿，因此不含香烟元素**）；插画原图目前尚未纳入版本管理。
+- 插画原图（1990×2107，透明底）目前只存在于桌面（`logo-v6-transparent.png`）；
+  仓库内是长边 480px 的母版 `brand/logo-mark-master.png`。
+
+## SEO
+
+- `BaseLayout.astro` 输出 canonical、Open Graph、Twitter Card、JSON-LD（WebSite + Organization）与 `theme-color`；
+  404 页带 `robots: noindex, follow`，且**不输出** canonical 与结构化数据。
+- `public/robots.txt` + `public/sitemap.xml`（当前仅首页一条；新增页面时同步更新，或改用 `@astrojs/sitemap`）。
+- 待办（需在 Cloudflare 后台处理）：`www` → 根域 301、HTTPS 强制、HSTS —— 实测三者目前**均未配置**。
 
 ## 页脚链接
 
